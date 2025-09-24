@@ -1,0 +1,94 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\JobPosition;
+use Illuminate\Http\Request;
+
+class JobPositionController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        return view('admin.pages.job-position.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $directorExists = \App\Models\JobPosition::where('job_category', 'director')->exists();
+        return view('admin.pages.job-position.create', compact('directorExists'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|unique:job_positions,name|max:255',
+            'job_category' => 'required|in:director,artistic,administrative,technical',
+        ]);
+
+        if ($validated['job_category'] === 'director' &&
+            \App\Models\JobPosition::where('job_category', 'director')->exists()) {
+            return back()->withErrors(['job_category' => 'Веќе постои директорска позиција.']);
+        }
+
+        JobPosition::create($validated);
+
+        return redirect()->route('admin.job-position.index')
+            ->with('alert', ['message' => 'Успешно беше додадена позицијата.']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(JobPosition $jobPosition)
+    {
+        return view('admin.pages.job-position.edit', [
+            'position' => $jobPosition,
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, JobPosition $jobPosition)
+    {
+        if ($jobPosition->name === $request['name'])
+            return redirect()->route('admin.job-position.index')
+                ->with('alert', ['message' => 'Нема направени промени.', 'type' => 'info']);
+
+        $validated = $request->validate([
+            'name' => 'required|unique:job_positions,name|max:255',
+        ]);
+
+        $jobPosition->update(['name' => $validated['name']]);
+
+        return redirect()->route('admin.job-position.index')
+            ->with('alert', ['message' => 'Промените беа успешно зачувани.']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(JobPosition $jobPosition)
+    {
+        $jobPosition->delete();
+        return redirect()->route('admin.job-position.index')
+            ->with('alert', ['message' => 'Уеспешно беше избришана позицијата.']);
+    }
+}

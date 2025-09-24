@@ -1,0 +1,457 @@
+<div id="calendar-container" class="w-full h-full py-20 bg-black/90">
+  <div class="w-full max-w-4xl mx-auto mb-12 relative">
+    <div class="swiper month-selector">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide text-white text-center py-4">January</div>
+        <div class="swiper-slide text-white text-center py-4">February</div>
+        <div class="swiper-slide text-white text-center py-4">March</div>
+        <div class="swiper-slide text-white text-center py-4">April</div>
+        <div class="swiper-slide text-white text-center py-4">May</div>
+        <div class="swiper-slide text-white text-center py-4">June</div>
+        <div class="swiper-slide text-white text-center py-4">July</div>
+        <div class="swiper-slide text-white text-center py-4">August</div>
+        <div class="swiper-slide text-white text-center py-4">September</div>
+        <div class="swiper-slide text-white text-center py-4">October</div>
+        <div class="swiper-slide text-white text-center py-4">November</div>
+        <div class="swiper-slide text-white text-center py-4">December</div>
+      </div>
+    </div>
+
+    <div class="month-selector-nav absolute inset-0 pointer-events-none flex items-center justify-center z-10">
+      <div class="relative w-full max-w-xs mx-auto">
+        <div
+          class="month-selector-button-prev absolute left-0 pointer-events-auto cursor-pointer bg-white/20 rounded-full w-8 h-8 flex items-center justify-center backdrop-blur-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </div>
+        <div
+          class="month-selector-button-next absolute right-0 pointer-events-auto cursor-pointer bg-white/20 rounded-full w-8 h-8 flex items-center justify-center backdrop-blur-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="calendar" class="grid grid-cols-3 grid-rows-3 w-[70%] h-[120vh] mx-auto gap-x-12 gap-y-20">
+    <div id="card-wrapper" class="relative">
+      <div class="absolute -bottom-8 -left-4 flex items-center z-20 overflow-visible">
+        <div
+          class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-black/80 to-black/0 blur-2xl -z-10 left-0 bottom-0">
+        </div>
+        <div>
+          <p id="day-of-the-month-no" class="text-white text-8xl font-bold leading-none">1</p>
+        </div>
+      </div>
+
+      <div id="card" class="group relative w-full h-full rounded-3xl shadow-lg overflow-hidden">
+        <div class="relative w-full h-full flex text-xl font-semibold bg-white">
+          <img src="{{ asset('./images/calendar-images/stjuardesi.jpg') }}"
+            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
+
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col p-4 bg-white text-right">
+            <div class="flex flex-col gap-y-4">
+              <h1 class="text-black text-2xl">Стјуардеси</h1>
+              <h2 class="text-red-500 text-xl">Четврток | 20:00</h2>
+            </div>
+
+            <div class="text-right text-xs font-light">
+              <p class="">Автор:</p>
+              <p>Марк Камолети</p>
+              <p>Режија:</p>
+              <p>Синиша Евтимов</p>
+            </div>
+
+            <div class="flex justify-end gap-x-5 text-xs pt-2">
+              <button class="text-white bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors duration-200">
+                КУПИ КАРТА
+              </button>
+              <button
+                class="text-red-800 bg-white border-2 border-red-800 w-8 h-8 text-xl rounded hover:bg-red-50 transition-colors duration-200">
+                i
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="card-wrapper" class="relative">
+      <div class="absolute -bottom-8 -left-4 flex items-center z-20 overflow-visible">
+        <div
+          class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-black/80 to-black/0 blur-2xl -z-10 left-0 bottom-0">
+        </div>
+        <div>
+          <p id="day-of-the-month-no" class="text-white text-8xl font-bold leading-none">2</p>
+        </div>
+      </div>
+      <div id="card" class="group relative w-full h-full rounded-3xl shadow-lg overflow-hidden">
+        <div class="relative w-full h-full flex text-xl font-semibold bg-white">
+          <img src="{{ asset('./images/calendar-images/demnejkigodo.jpg') }}"
+            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
+
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col p-4 bg-white text-right">
+            <div class="flex flex-col gap-y-4">
+              <h1 class="text-black text-2xl">Стјуардеси</h1>
+              <h2 class="text-red-500 text-xl">Четврток | 20:00</h2>
+            </div>
+
+            <div class="text-right text-xs font-light">
+              <p class="">Автор:</p>
+              <p>Марк Камолети</p>
+              <p>Режија:</p>
+              <p>Синиша Евтимов</p>
+            </div>
+
+            <div class="flex justify-end gap-x-5 text-xs pt-2">
+              <button class="text-white bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors duration-200">
+                КУПИ КАРТА
+              </button>
+              <button
+                class="text-red-800 bg-white border-2 border-red-800 w-8 h-8 text-xl rounded hover:bg-red-50 transition-colors duration-200">
+                i
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="card-wrapper" class="relative">
+      <div class="absolute -bottom-8 -left-4 flex items-center z-20 overflow-visible">
+        <div
+          class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-black/80 to-black/0 blur-2xl -z-10 left-0 bottom-0">
+        </div>
+        <div>
+          <p id="day-of-the-month-no" class="text-white text-8xl font-bold leading-none">6</p>
+        </div>
+      </div>
+      <div id="card" class="group relative w-full h-full rounded-3xl shadow-lg overflow-hidden">
+        <div class="relative w-full h-full flex text-xl font-semibold bg-white">
+          <img src="{{ asset('./images/calendar-images/vecera-za-glupaci.jpg') }}"
+            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
+
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col p-4 bg-white text-right">
+            <div class="flex flex-col gap-y-4">
+              <h1 class="text-black text-2xl">Стјуардеси</h1>
+              <h2 class="text-red-500 text-xl">Четврток | 20:00</h2>
+            </div>
+
+            <div class="text-right text-xs font-light">
+              <p class="">Автор:</p>
+              <p>Марк Камолети</p>
+              <p>Режија:</p>
+              <p>Синиша Евтимов</p>
+            </div>
+
+            <div class="flex justify-end gap-x-5 text-xs pt-2">
+              <button class="text-white bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors duration-200">
+                КУПИ КАРТА
+              </button>
+              <button
+                class="text-red-800 bg-white border-2 border-red-800 w-8 h-8 text-xl rounded hover:bg-red-50 transition-colors duration-200">
+                i
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="card-wrapper" class="relative">
+      <div class="absolute -bottom-8 -left-4 flex items-center z-20 overflow-visible">
+        <div
+          class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-black/80 to-black/0 blur-2xl -z-10 left-0 bottom-0">
+        </div>
+        <div>
+          <p id="day-of-the-month-no" class="text-white text-8xl font-bold leading-none">16</p>
+        </div>
+      </div>
+      <div id="card" class="group relative w-full h-full rounded-3xl shadow-lg overflow-hidden">
+        <div class="relative w-full h-full flex text-xl font-semibold bg-white">
+          <img src="{{ asset('./images/calendar-images/veke-ne-e-ni-smesno.png') }}"
+            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
+
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col p-4 bg-white text-right">
+            <div class="flex flex-col gap-y-4">
+              <h1 class="text-black text-2xl">Стјуардеси</h1>
+              <h2 class="text-red-500 text-xl">Четврток | 20:00</h2>
+            </div>
+
+            <div class="text-right text-xs font-light">
+              <p class="">Автор:</p>
+              <p>Марк Камолети</p>
+              <p>Режија:</p>
+              <p>Синиша Евтимов</p>
+            </div>
+
+            <div class="flex justify-end gap-x-5 text-xs pt-2">
+              <button class="text-white bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors duration-200">
+                КУПИ КАРТА
+              </button>
+              <button
+                class="text-red-800 bg-white border-2 border-red-800 w-8 h-8 text-xl rounded hover:bg-red-50 transition-colors duration-200">
+                i
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="card-wrapper" class="relative">
+      <div class="absolute -bottom-8 -left-4 flex items-center z-20 overflow-visible">
+        <div
+          class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-black/80 to-black/0 blur-2xl -z-10 left-0 bottom-0">
+        </div>
+        <div>
+          <p id="day-of-the-month-no" class="text-white text-8xl font-bold leading-none">18</p>
+        </div>
+      </div>
+      <div id="card" class="group relative w-full h-full rounded-3xl shadow-lg overflow-hidden">
+        <div class="relative w-full h-full flex text-xl font-semibold bg-white">
+          <img src="{{ asset('./images/calendar-images/zeni-vo-sobranie.jpg') }}"
+            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
+
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col p-4 bg-white text-right">
+            <div class="flex flex-col gap-y-4">
+              <h1 class="text-black text-2xl">Стјуардеси</h1>
+              <h2 class="text-red-500 text-xl">Четврток | 20:00</h2>
+            </div>
+
+            <div class="text-right text-xs font-light">
+              <p class="">Автор:</p>
+              <p>Марк Камолети</p>
+              <p>Режија:</p>
+              <p>Синиша Евтимов</p>
+            </div>
+
+            <div class="flex justify-end gap-x-5 text-xs pt-2">
+              <button class="text-white bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors duration-200">
+                КУПИ КАРТА
+              </button>
+              <button
+                class="text-red-800 bg-white border-2 border-red-800 w-8 h-8 text-xl rounded hover:bg-red-50 transition-colors duration-200">
+                i
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div id="card-wrapper" class="relative">
+      <div class="absolute -bottom-8 -left-4 flex items-center z-20 overflow-visible">
+        <div
+          class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-black/80 to-black/0 blur-2xl -z-10 left-0 bottom-0">
+        </div>
+        <div>
+          <p id="day-of-the-month-no" class="text-white text-8xl font-bold leading-none">20</p>
+        </div>
+      </div>
+      <div id="card" class="group relative w-full h-full rounded-3xl shadow-lg overflow-hidden">
+        <div class="relative w-full h-full flex text-xl font-semibold bg-white">
+          <img src="{{ asset('./images/calendar-images/tantela.jpg') }}"
+            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
+
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col p-4 bg-white text-right">
+            <div class="flex flex-col gap-y-4">
+              <h1 class="text-black text-2xl">Стјуардеси</h1>
+              <h2 class="text-red-500 text-xl">Четврток | 20:00</h2>
+            </div>
+
+            <div class="text-right text-xs font-light">
+              <p class="">Автор:</p>
+              <p>Марк Камолети</p>
+              <p>Режија:</p>
+              <p>Синиша Евтимов</p>
+            </div>
+
+            <div class="flex justify-end gap-x-5 text-xs pt-2">
+              <button class="text-white bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors duration-200">
+                КУПИ КАРТА
+              </button>
+              <button
+                class="text-red-800 bg-white border-2 border-red-800 w-8 h-8 text-xl rounded hover:bg-red-50 transition-colors duration-200">
+                i
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="card-wrapper" class="relative">
+      <div class="absolute -bottom-8 -left-4 flex items-center z-20 overflow-visible">
+        <div
+          class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-black/80 to-black/0 blur-2xl -z-10 left-0 bottom-0">
+        </div>
+        <div>
+          <p id="day-of-the-month-no" class="text-white text-8xl font-bold leading-none">22</p>
+        </div>
+      </div>
+      <div id="card" class="group relative w-full h-full rounded-3xl shadow-lg overflow-hidden">
+        <div class="relative w-full h-full flex text-xl font-semibold bg-white">
+          <img src="{{ asset('./images/calendar-images/pastuvi.jpg') }}"
+            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
+
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col p-4 bg-white text-right">
+            <div class="flex flex-col gap-y-4">
+              <h1 class="text-black text-2xl">Стјуардеси</h1>
+              <h2 class="text-red-500 text-xl">Четврток | 20:00</h2>
+            </div>
+
+            <div class="text-right text-xs font-light">
+              <p class="">Автор:</p>
+              <p>Марк Камолети</p>
+              <p>Режија:</p>
+              <p>Синиша Евтимов</p>
+            </div>
+
+            <div class="flex justify-end gap-x-5 text-xs pt-2">
+              <button class="text-white bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors duration-200">
+                КУПИ КАРТА
+              </button>
+              <button
+                class="text-red-800 bg-white border-2 border-red-800 w-8 h-8 text-xl rounded hover:bg-red-50 transition-colors duration-200">
+                i
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="card-wrapper" class="relative">
+      <div class="absolute -bottom-8 -left-4 flex items-center z-20 overflow-visible">
+        <div
+          class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-black/80 to-black/0 blur-2xl -z-10 left-0 bottom-0">
+        </div>
+        <div>
+          <p id="day-of-the-month-no" class="text-white text-8xl font-bold leading-none">24</p>
+        </div>
+      </div>
+      <div id="card" class="group relative w-full h-full rounded-3xl shadow-lg overflow-hidden">
+        <div class="relative w-full h-full flex text-xl font-semibold bg-white">
+          <img src="{{ asset('./images/calendar-images/tarzan.jpg') }}"
+            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
+
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col p-4 bg-white text-right">
+            <div class="flex flex-col gap-y-4">
+              <h1 class="text-black text-2xl">Стјуардеси</h1>
+              <h2 class="text-red-500 text-xl">Четврток | 20:00</h2>
+            </div>
+
+            <div class="text-right text-xs font-light">
+              <p class="">Автор:</p>
+              <p>Марк Камолети</p>
+              <p>Режија:</p>
+              <p>Синиша Евтимов</p>
+            </div>
+
+            <div class="flex justify-end gap-x-5 text-xs pt-2">
+              <button class="text-white bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors duration-200">
+                КУПИ КАРТА
+              </button>
+              <button
+                class="text-red-800 bg-white border-2 border-red-800 w-8 h-8 text-xl rounded hover:bg-red-50 transition-colors duration-200">
+                i
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div id="card-wrapper" class="relative">
+      <div class="absolute -bottom-8 -left-4 flex items-center z-20 overflow-visible">
+        <div
+          class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-black/80 to-black/0 blur-2xl -z-10 left-0 bottom-0">
+        </div>
+        <div>
+          <p id="day-of-the-month-no" class="text-white text-8xl font-bold leading-none">26</p>
+        </div>
+      </div>
+      <div id="card" class="group relative w-full h-full rounded-3xl shadow-lg overflow-hidden">
+        <div class="relative w-full h-full flex text-xl font-semibold bg-white">
+          <img src="{{ asset('./images/calendar-images/iluminati.png') }}"
+            class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
+
+          <div
+            class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col p-4 bg-white text-right">
+            <div class="flex flex-col gap-y-4">
+              <h1 class="text-black text-2xl">Стјуардеси</h1>
+              <h2 class="text-red-500 text-xl">Четврток | 20:00</h2>
+            </div>
+
+            <div class="text-right text-xs font-light">
+              <p class="">Автор:</p>
+              <p>Марк Камолети</p>
+              <p>Режија:</p>
+              <p>Синиша Евтимов</p>
+            </div>
+
+            <div class="flex justify-end gap-x-5 text-xs pt-2">
+              <button class="text-white bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors duration-200">
+                КУПИ КАРТА
+              </button>
+              <button
+                class="text-red-800 bg-white border-2 border-red-800 w-8 h-8 text-xl rounded hover:bg-red-50 transition-colors duration-200">
+                i
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const monthSelector = new Swiper('.month-selector', {
+      slidesPerView: 5,
+      centeredSlides: true,
+      spaceBetween: 10,
+      loop: true,
+      speed: 500,
+      navigation: {
+        nextEl: '.month-selector-button-next',
+        prevEl: '.month-selector-button-prev',
+      },
+      on: {
+        init: function () {
+          const centerIndex = Math.floor(this.slides.length / 2);
+          this.slides[centerIndex].classList.add('text-red-500', 'font-bold', 'scale-110');
+        },
+        slideChange: function () {
+          this.slides.forEach(slide => {
+            slide.classList.remove('text-red-500', 'font-bold', 'scale-110');
+          });
+
+          const centerIndex = this.activeIndex + 2; // 3rd visible slide (0-indexed + 2)
+          const centerSlide = this.slides[centerIndex];
+          if (centerSlide) {
+            centerSlide.classList.add('text-red-500', 'font-bold', 'scale-110');
+          }
+        }
+      }
+    });
+  });
+</script>

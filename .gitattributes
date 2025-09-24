@@ -1,0 +1,14 @@
+# Use LF line endings for all text files
+* text=auto eol=lf
+
+# Apply appropriate diffs and enforce LF line endings per file type
+*.blade.php diff=html text eol=lf
+*.css       diff=css  text eol=lf
+*.html      diff=html text eol=lf
+*.md        diff=markdown text eol=lf
+*.php       diff=php  text eol=lf
+
+# Ignore these on export (as you had before)
+/.github        export-ignore
+CHANGELOG.md    export-ignore
+.styleci.yml    export-ignore
