@@ -16,8 +16,10 @@
                                 class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col p-4 bg-white">
                                 <div class="flex flex-col gap-y-4">
                                     <h1 class="text-black text-2xl"> {{ $play->title }} </h1>
-                                    <h2 class="text-red-500 text-xl">{{ $play->dates->first()->getDate() }} |
-                                        {{ $play->dates->first()->getTime() }}</h2>
+                                    @php($firstDate = $play->dates->first())
+                                    @if($firstDate)
+                                        <h2 class="text-red-500 text-xl">{{ $firstDate->getDate() }} | {{ $firstDate->getTime() }}</h2>
+                                    @endif
                                 </div>
 
                                 <div class="flex-1 overflow-y-auto my-2 ">
