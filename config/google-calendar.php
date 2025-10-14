@@ -13,7 +13,7 @@ return [
             /*
              * Path to the json file containing the credentials.
              */
-            'credentials_json' => storage_path('app/google-calendar/tough-cascade-466012-v1-bed8e7e7d382.json'),
+            'credentials_json' => storage_path('app/google-calendar/teatar-komedija-website-calendar.json'),
         ],
 
 
