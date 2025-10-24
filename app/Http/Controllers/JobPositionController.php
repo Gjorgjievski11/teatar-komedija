@@ -20,7 +20,7 @@ class JobPositionController extends Controller
      */
     public function create()
     {
-        $directorExists = \App\Models\JobPosition::where('job_category', 'director')->exists();
+        $directorExists = JobPosition::where('job_category', 'director')->exists();
         return view('admin.pages.job-position.create', compact('directorExists'));
     }
 
@@ -35,7 +35,7 @@ class JobPositionController extends Controller
         ]);
 
         if ($validated['job_category'] === 'director' &&
-            \App\Models\JobPosition::where('job_category', 'director')->exists()) {
+            JobPosition::where('job_category', 'director')->exists()) {
             return back()->withErrors(['job_category' => 'Веќе постои директорска позиција.']);
         }
 

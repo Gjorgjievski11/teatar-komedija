@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Employee extends Model
 {
-    public const IS_DIRECTOR = 1;
-    public const IS_ACTER = 1;
-
     protected $fillable = ['name', 'surname', 'description', 'job_position_id'];
 
 

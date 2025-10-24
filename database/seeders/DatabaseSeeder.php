@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder {
         $this->call([
             JobPositionSeeder::class,
             CategorySeeder::class,
-            // PlaySeeder::class,
+            PlaySeeder::class,
             UserSeeder::class,
         ]);
     }
