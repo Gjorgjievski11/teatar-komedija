@@ -11,12 +11,18 @@
             <h1 class="text-xl sm:text-2xl font-bold mb-2">{{ $play->title }}</h1>
             @php
                 $premiereDate = $play->dates->sortBy('played_at')->first();
+                $isPremiereUpcoming = $premiereDate
+                    ? \Illuminate\Support\Carbon::parse($premiereDate->played_at)->isFuture()
+                    : false;
             @endphp
 
             <div class="mb-4 flex flex-wrap items-center gap-x-4 text-sm text-gray-800">
                 @if ($premiereDate)
-                    <p class="text-red-800 font-bold">ПРЕМИЕРА</p>
-                    <span>|</span>
+                    @if ($isPremiereUpcoming)
+                        <p class="text-red-800 font-bold">ПРЕМИЕРА</p>
+                        <span>|</span>
+                    @endif
+
                     <p>{{ $premiereDate->getDate('Y.m.d') }}</p>
                     <span>|</span>
                     <p>{{ $premiereDate->getTime() }}</p>
