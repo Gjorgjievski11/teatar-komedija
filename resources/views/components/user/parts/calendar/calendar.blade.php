@@ -92,17 +92,17 @@
 
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 bg-white text-right">
                 <div class="flex flex-col gap-y-4">
-                    <h1 class="text-black text-4xl max-sm:text-center md:text-2xl ">${escapeHtml(play.title)}</h1>
-                    <h2 class="text-red-500 text-3xl max-sm:text-center md:text-xl">${escapeHtml(play.time)}</h2>
-                    ${play.description ? `<p class="text-gray-600 text-sm text-left">${escapeHtml(play.description)}</p>` : ''}
+                    <h1 class="text-black text-4xl max-sm:text-center md:text-2xl break-words overflow-hidden">${escapeHtml(play.title)}</h1>
+                    <h2 class="text-red-500 text-3xl max-sm:text-center md:text-xl break-words overflow-hidden">${escapeHtml(play.time)}</h2>
+                    ${play.description ? `<p class="text-gray-600 text-sm text-left break-words overflow-hidden">${escapeHtml(play.description)}</p>` : ''}
                 </div>
 
-                <div class="text-right text-xs font-light max-sm:hidden">
+                <div class="text-right text-xs font-light max-sm:hidden break-words overflow-hidden">
                     <p>Автор:</p>
-                    <p>${escapeHtml(play.author)}</p>
+                    <p class="break-words">${escapeHtml(play.author)}</p>
                     <p>Режија:</p>
-                    <p>${escapeHtml(play.director)}</p>
-                    <p class="text-red-600 font-semibold max-sm:text-2xl mt-2">${escapeHtml(play.price)}</p>
+                    <p class="break-words">${escapeHtml(play.director)}</p>
+                    <p class="text-red-600 font-semibold max-sm:text-2xl mt-2 break-words">${escapeHtml(play.price)}</p>
                 </div>
 
                 <div class="bottom-6 right-4 flex justify-end gap-x-5 text-xs pt-2">
