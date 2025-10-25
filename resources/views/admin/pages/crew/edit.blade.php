@@ -15,7 +15,6 @@
                         </div>
                     </div>
 
-                    {{-- Contributions UI: individual select rows + Add button (preserves old contribution_id fallback) --}}
                     <div class="mt-3">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Работел како</label>
 
@@ -41,7 +40,6 @@
                             @endforeach
                         </div>
 
-                        {{-- Template (hidden) used by JS to append new selects --}}
                         <template id="contrib-template-{{ $playEmployee->id }}">
                             <div class="contrib-item flex items-center gap-2">
                                 <select name="contribution-{{ $playEmployee->id }}[]" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
@@ -60,7 +58,6 @@
                         </div>
                     </div>
 
-                    {{-- replace component input with a plain editable input (not locked) --}}
                     <div class="mt-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Име во претставата</label>
                         <input
@@ -79,17 +76,13 @@
                     да доадеш</x-admin.parts.form.error>
             @endforelse
         </div>
-
         <div class="mt-6">
             {{ $crew->links() }}
         </div>
-
         <div class="mt-6">
             <x-admin.parts.form.button>Зачувај</x-admin.parts.form.button>
         </div>
     </form>
-
-    {{-- Small JS to handle add/remove of contribution selects --}}
     <script>
         function addContribution(playEmployeeId) {
             const tpl = document.getElementById(`contrib-template-${playEmployeeId}`);

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedBigInteger('play_employee_id');
             $table->unsignedBigInteger('contribution_id');
             $table->timestamps();
-
             $table->index('play_employee_id');
             $table->index('contribution_id');
         });

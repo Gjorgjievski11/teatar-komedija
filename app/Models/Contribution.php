@@ -26,9 +26,9 @@ class Contribution extends Model
     {
         return $this->belongsToMany(
             \App\Models\PlayEmployee::class,
-            'contribution_play_employee',   // pivot table
-            'contribution_id',              // this model's pivot FK
-            'play_employee_id'              // related model's pivot FK
+            'contribution_play_employee',
+            'contribution_id',
+            'play_employee_id'
         )->withTimestamps();
     }
 }

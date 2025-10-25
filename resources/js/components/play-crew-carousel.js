@@ -4,6 +4,20 @@ export default function initPlayCrewFreemodeCarousel() {
         spaceBetween: 16,
         freeMode: true,
         grabCursor: true,
+        // Add padding to prevent bottom clipping
+        wrapperClass: 'swiper-wrapper',
+        slideClass: 'swiper-slide',
+        // Add these to prevent clipping
+        resistance: true,
+        resistanceRatio: 0,
+        // Add bottom padding
+        on: {
+            init: function (swiper) {
+                // Add padding to wrapper to prevent bottom clipping
+                swiper.wrapperEl.style.paddingBottom = '20px';
+                swiper.wrapperEl.style.marginBottom = '-20px';
+            },
+        },
         breakpoints: {
             // when window width is >= 320px (mobile)
             320: {

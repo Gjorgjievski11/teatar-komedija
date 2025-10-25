@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Contribution;
 
 class PlayEmployee extends Model
 {
@@ -17,10 +18,10 @@ class PlayEmployee extends Model
     public function contributions()
     {
         return $this->belongsToMany(
-            \App\Models\Contribution::class,
-            'contribution_play_employee',   // pivot table
-            'play_employee_id',             // this model's pivot FK
-            'contribution_id'               // related model's pivot FK
+            Contribution::class,
+            'contribution_play_employee',
+            'play_employee_id',
+            'contribution_id'
         )->withTimestamps();
     }
 }

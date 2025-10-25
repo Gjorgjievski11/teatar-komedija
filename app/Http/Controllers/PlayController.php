@@ -52,8 +52,7 @@ class PlayController extends Controller
 
         StorePlayPoster::dispatch($play, $tempPath);
 
-        if($request->has('categories'))
-        {
+        if ($request->has('categories')) {
             $play->categories()->sync($validated['categories']);
         }
 
@@ -64,10 +63,34 @@ class PlayController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $play = Play::with([
+            'dates',
+            'crew.employee.jobPosition',
+            'crew.employee.images',
+            'crew.contributions',
+            'images'
+        ])->findOrFail($id);
+
+        // Get actors - people with specific job positions (adjust based on your job position names)
+        $actors = $play->crew->filter(function ($playEmployee) {
+            $jobPositionName = strtolower($playEmployee->employee->jobPosition->name ?? '');
+            return str_contains($jobPositionName, 'actor') || 
+                   str_contains($jobPositionName, 'глумец') ||
+                   str_contains($jobPositionName, 'актер');
+        });
+
+        // Get all contributors (including actors who also have contributions)
+        $contributors = $play->crew->filter(function ($playEmployee) {
+            // Check if they have contributions (many-to-many) OR legacy contribution_id
+            return $playEmployee->contributions->isNotEmpty() || 
+                   !is_null($playEmployee->contribution_id);
+        });
+
+        return view('user.play.show', compact('play', 'actors', 'contributors'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -99,7 +122,7 @@ class PlayController extends Controller
 
         $play->update($validated);
 
-        if($request->has('categories')){
+        if ($request->has('categories')) {
             $play->categories()->sync($validated['categories']);
         }
 

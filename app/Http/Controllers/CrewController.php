@@ -63,9 +63,9 @@ class CrewController extends Controller
      */
     public function edit(Play $play)
     {
-        $crew = $play->playEmployees()
-            ->with(['employee', 'contributions']) // eager load
-            ->get();
+        $crew = $play->crew()
+            ->with(['employee', 'contributions'])
+            ->paginate(  12);
 
         return view('admin.pages.crew.edit', [
             'play' => $play,
@@ -80,7 +80,7 @@ class CrewController extends Controller
     public function update(Request $request, Play $play)
     {
         // load all play employees for this play
-        $crew = PlayEmployee::where('play_id', $play->id)->get();
+        $crew = $play->crew;
 
         // build validation rules dynamically per play employee
         $rules = [];
