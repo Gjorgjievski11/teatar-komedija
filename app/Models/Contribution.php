@@ -21,4 +21,14 @@ class Contribution extends Model
             });
         }
     }
+
+    public function playEmployees()
+    {
+        return $this->belongsToMany(
+            \App\Models\PlayEmployee::class,
+            'contribution_play_employee',   // pivot table
+            'contribution_id',              // this model's pivot FK
+            'play_employee_id'              // related model's pivot FK
+        )->withTimestamps();
+    }
 }

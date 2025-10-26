@@ -50,7 +50,7 @@ class Play extends Model
         $dayRange = $start->format('d') . '-' . $end->format('d');
 
         // Set locale to Macedonian
-        \Carbon\Carbon::setLocale('mk');
+        Carbon::setLocale('mk');
 
         // Get month name in Macedonian (Carbon uses translatedFormat for locales)
         $month = $start->translatedFormat('F'); // returns "јуни" in Macedonian

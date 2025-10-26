@@ -13,4 +13,14 @@ class PlayEmployee extends Model
     {
         return $this->belongsTo(Employee::class);
     }
+
+    public function contributions()
+    {
+        return $this->belongsToMany(
+            \App\Models\Contribution::class,
+            'contribution_play_employee',   // pivot table
+            'play_employee_id',             // this model's pivot FK
+            'contribution_id'               // related model's pivot FK
+        )->withTimestamps();
+    }
 }
