@@ -31,7 +31,7 @@ class JobPositionController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|unique:job_positions,name|max:255',
-            'job_category' => 'required|in:director,artistic,administrative,technical',
+            'job_category' => 'required|in:director,artistic,administrative,technical,',
         ]);
 
         if ($validated['job_category'] === 'director' &&
@@ -89,6 +89,6 @@ class JobPositionController extends Controller
     {
         $jobPosition->delete();
         return redirect()->route('admin.job-position.index')
-            ->with('alert', ['message' => 'Уеспешно беше избришана позицијата.']);
+            ->with('alert', ['message' => 'Успешно беше избришана позицијата.']);
     }
 }
