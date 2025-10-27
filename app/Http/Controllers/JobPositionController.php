@@ -31,7 +31,7 @@ class JobPositionController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|unique:job_positions,name|max:255',
-            'job_category' => 'required|in:director,artistic,administrative,technical,',
+            'job_category' => 'required|in:director,artistic,administrative,technical,collaborator',
         ]);
 
         if ($validated['job_category'] === 'director' &&
