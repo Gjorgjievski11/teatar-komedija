@@ -61,19 +61,17 @@ class CrewController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Play $play)
-    {
-        $crew = $play->playEmployees()
-            ->with(['employee', 'contributions']) // eager load
-            ->get();
-
-        return view('admin.pages.crew.edit', [
-            'play' => $play,
-            'crew' => $crew,
-            'contributions' => Contribution::all(),
-        ]);
-    }
-
+public function edit(Play $play) {
+    $crew = $play->crew()
+        ->with(['employee', 'contributions'])
+        ->paginate(12);
+        
+    return view('admin.pages.crew.edit', [
+        'play' => $play,
+        'crew' => $crew,
+        'contributions' => Contribution::all(),
+    ]);
+}
     /**
      * Update play employees (roles and multiple contributions).
      */
