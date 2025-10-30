@@ -87,7 +87,7 @@ class PlayController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'duration' => 'required|numeric|min:0',
+            'duration' => 'nullable|numeric|min:0', // changed to nullable so that it doesn't require updating if not provided
             'short_description' => 'nullable|max:300',
             'description' => 'nullable|max:5000',
             'poster' => 'nullable|image|mimes:jpg,jpeg,webp,png',
