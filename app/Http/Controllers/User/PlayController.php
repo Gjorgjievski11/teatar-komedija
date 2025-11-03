@@ -14,13 +14,13 @@ public function show($id)
 {
     $play = Play::with([
         'dates',
-        'crew.employee.jobPosition', 
+        'crew.employee.jobPosition',
         'crew.employee.images',
         'crew.contributions',
         'images'
     ])->findOrFail($id);
 
-    // Debug: See all job positions in the crew
+    // Debug (optional)
     $allJobPositions = $play->crew->map(function($pe) {
         return [
             'employee_name' => $pe->employee->getFullName(),
@@ -30,23 +30,22 @@ public function show($id)
         ];
     });
 
-    // Get actors
-    $actors = $play->crew->filter(function ($playEmployee) {
-        // Check if they have a role name (actors usually have character names)
-        if (!empty($playEmployee->role_name)) {
-            return true;
-        }
-        
-        // OR check job position
-        $jobPositionName = strtolower($playEmployee->employee->jobPosition->name ?? '');
-        return str_contains($jobPositionName, 'actor') || 
-               str_contains($jobPositionName, 'глумец') ||
-               str_contains($jobPositionName, 'актер');
-    });
+    $actors = $play->crew->filter(function ($pe) {
+    $job = strtolower($pe->employee->jobPosition->name ?? '');
+    $hasRole = filled($pe->role_name);
+    $hasContributions = $pe->contributions->isNotEmpty() || !is_null($pe->contribution_id);
 
-    // Get ALL contributors INCLUDING actors
+    $isActorByPosition = str_contains($job, 'actor') ||
+                         str_contains($job, 'глумец') ||
+                         str_contains($job, 'актер');
+
+    return $hasRole || $isActorByPosition || !$hasContributions;
+});
+
+    
+    // (you can leave this part as-is)
     $contributors = $play->crew->filter(function ($playEmployee) {
-        return $playEmployee->contributions->isNotEmpty() || 
+        return $playEmployee->contributions->isNotEmpty() ||
                !is_null($playEmployee->contribution_id);
     });
 
