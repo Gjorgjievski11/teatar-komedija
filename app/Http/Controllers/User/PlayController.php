@@ -42,8 +42,7 @@ public function show($id)
     return $hasRole || $isActorByPosition || !$hasContributions;
 });
 
-    
-    // (you can leave this part as-is)
+
     $contributors = $play->crew->filter(function ($playEmployee) {
         return $playEmployee->contributions->isNotEmpty() ||
                !is_null($playEmployee->contribution_id);

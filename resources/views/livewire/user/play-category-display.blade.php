@@ -24,7 +24,7 @@
     </div> --}}
     <div id="premiere" class="my-8 sm:my-12 flex flex-col gap-8 sm:gap-12 w-full sm:w-[70%] mx-auto">
         @forelse ($plays as $play)
-            <x-user.parts.play.card :$play />
+            <x-user.parts.play.card :play="$play" :category="$category" />
         @empty
             <p class="text-center text-red-700 font-bold text-xl sm:text-3xl">НЕМА ПРЕТСТАВИ</p>
         @endforelse
