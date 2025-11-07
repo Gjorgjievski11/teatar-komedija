@@ -20,6 +20,13 @@
             let currentRequest = null;
             let isLoading = false;
 
+            // --- Listen for year changes ---
+            window.addEventListener('year-changed', (e) => {
+                currentYear = e.detail.year;
+                updateCalendar(currentMonth, currentYear);
+                renderMonthButtons(currentMonth);
+            });
+
             updateCalendar(currentMonth, currentYear);
             renderMonthButtons(currentMonth);
 
@@ -39,19 +46,12 @@
                         signal: controller.signal
                     })
                     .then(res => {
-                        if (controller.signal.aborted) {
-                            return Promise.reject(new Error('Request cancelled'));
-                        }
-
-                        if (!res.ok) {
-                            throw new Error('Network response was not ok');
-                        }
+                        if (controller.signal.aborted) return Promise.reject(new Error('Request cancelled'));
+                        if (!res.ok) throw new Error('Network response was not ok');
                         return res.json();
                     })
                     .then(data => {
-                        if (controller.signal.aborted) {
-                            return;
-                        }
+                        if (controller.signal.aborted) return;
 
                         calendar.innerHTML = '';
 
@@ -127,9 +127,7 @@
                     })
                     .finally(() => {
                         isLoading = false;
-                        if (currentRequest === controller) {
-                            currentRequest = null;
-                        }
+                        if (currentRequest === controller) currentRequest = null;
                     });
             }
 
