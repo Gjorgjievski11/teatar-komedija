@@ -20,6 +20,13 @@
             let currentRequest = null;
             let isLoading = false;
 
+            // --- Listen for year changes ---
+            window.addEventListener('year-changed', (e) => {
+                currentYear = e.detail.year;
+                updateCalendar(currentMonth, currentYear);
+                renderMonthButtons(currentMonth);
+            });
+
             updateCalendar(currentMonth, currentYear);
             renderMonthButtons(currentMonth);
 
@@ -39,19 +46,12 @@
                         signal: controller.signal
                     })
                     .then(res => {
-                        if (controller.signal.aborted) {
-                            return Promise.reject(new Error('Request cancelled'));
-                        }
-
-                        if (!res.ok) {
-                            throw new Error('Network response was not ok');
-                        }
+                        if (controller.signal.aborted) return Promise.reject(new Error('Request cancelled'));
+                        if (!res.ok) throw new Error('Network response was not ok');
                         return res.json();
                     })
                     .then(data => {
-                        if (controller.signal.aborted) {
-                            return;
-                        }
+                        if (controller.signal.aborted) return;
 
                         calendar.innerHTML = '';
 
@@ -94,7 +94,6 @@
                 <div class="flex flex-col gap-y-4">
                     <h1 class="text-black text-4xl max-sm:text-center md:text-2xl break-words overflow-hidden">${escapeHtml(play.title)}</h1>
                     <h2 class="text-red-500 text-3xl max-sm:text-center md:text-xl break-words overflow-hidden">${escapeHtml(play.time)}</h2>
-                    ${play.description ? `<p class="text-gray-600 text-sm text-left break-words overflow-hidden">${escapeHtml(play.description)}</p>` : ''}
                 </div>
 
                 <div class="text-right text-xs font-light max-sm:hidden break-words overflow-hidden">
@@ -128,9 +127,7 @@
                     })
                     .finally(() => {
                         isLoading = false;
-                        if (currentRequest === controller) {
-                            currentRequest = null;
-                        }
+                        if (currentRequest === controller) currentRequest = null;
                     });
             }
 

@@ -8,8 +8,9 @@
                 <div class="absolute inset-0 z-10 bg-gradient-to-b from-black via-transparent to-black"></div>
 
                 @php
-                    $premiereDate = $play->dates()->orderBy('played_at')->first();
+                    $premiereDate = $play->dates->first(); // uses eager-loaded, already filtered dates
                     $isPremiere = $premiereDate ? \Carbon\Carbon::parse($premiereDate->played_at)->isFuture() : false;
+                @endphp
                 @endphp
                 <div class="absolute bottom-10 left-10 z-20 text-white">
                     <h2 class="text-4xl font-bold">{{ $play->title }}</h2>

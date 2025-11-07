@@ -1,5 +1,5 @@
 <div class="px-4">
-    <div id="selector" class="flex flex-col sm:flex-row text-center text-base sm:text-xl w-full sm:w-3/4 mx-auto border-b my-8 sm:my-12">
+    {{-- <div id="selector" class="flex flex-col sm:flex-row text-center text-base sm:text-xl w-full sm:w-3/4 mx-auto border-b my-8 sm:my-12">
         <button
             x-on:click="$wire.category = 'premieres'; $wire.setCategory('premieres')"
             class="pb-2 w-full sm:w-1/3 max-sm:text-3xl"
@@ -21,7 +21,7 @@
         >
             Гола Месечина
         </button>
-    </div>
+    </div> --}}
     <div id="premiere" class="my-8 sm:my-12 flex flex-col gap-8 sm:gap-12 w-full sm:w-[70%] mx-auto">
         @forelse ($plays as $play)
             <x-user.parts.play.card :play="$play" :category="$category" />
