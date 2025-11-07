@@ -1,7 +1,7 @@
 <section id="carousel" class="h-[80vh] -mt-24 relative z-10'">
     <div class="swiper mySwiper w-full h-full mx-auto">
         <div class="swiper-wrapper z-20 bg-black">
-            @forelse ($plays->take(3) as $play)
+            @forelse ($plays as $play)
             <div class="swiper-slide relative w-full h-full">
                 <img src="{{ $play->poster }}" class="absolute inset-0 w-full h-full object-cover z-0" alt="{{ $play->title }}">
 
@@ -9,11 +9,14 @@
 
                 @php
                     $premiereDate = $play->dates()->orderBy('played_at')->first();
+                    $isPremiere = $premiereDate ? \Carbon\Carbon::parse($premiereDate->played_at)->isFuture() : false;
                 @endphp
                 <div class="absolute bottom-10 left-10 z-20 text-white">
                     <h2 class="text-4xl font-bold">{{ $play->title }}</h2>
                     <div class="flex gap-4 mt-2 items-center text-lg">
-                        <span class="text-yellow-400 font-semibold">ПРЕМИЕРА</span>
+                        @if($isPremiere)
+                            <span class="text-yellow-400 font-semibold">ПРЕМИЕРА</span>
+                        @endif
                         <span>{{ $premiereDate->getDate('d.m.Y') }}</span>
                     </div>
                     <p class="text-sm mt-1">РЕПЕРТОАР 2025</p>
@@ -27,12 +30,9 @@
             @empty
                 <div class='swiper-slide relative w-full h-full text-4xl text-red-600 text-center content-center'>Нема Претстави</div>
             @endforelse
-
-
         </div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
         <div class="swiper-pagination custom-pagination"></div>
     </div>
 </section>
-
