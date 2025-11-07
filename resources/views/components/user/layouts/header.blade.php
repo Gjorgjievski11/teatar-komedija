@@ -152,15 +152,15 @@
                             <li>
                                 <a href="{{ route('user.archive.plays') }}"
                                     class="relative text-white hover:text-gray-300 duration-300 transition-all block py-2 px-4 before:absolute before:left-0 before:top-4 before:w-0 hover:before:w-5 before:bg-white before:transition-all before:duration-150 before:delay-100 before:h-1 before:rounded-full">
-                                    АРХИВА НА ПРЕТСТАВИ
+                                    АРХИВА НА ПРЕТСТАВИghgfggf
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="{{ route('user.archive.repertoires') }}"
                                     class="relative text-white hover:text-gray-300 duration-300 transition-all block py-2 px-4 before:absolute before:left-0 before:top-4 before:w-0 hover:before:w-5 before:bg-white before:transition-all before:duration-150 before:delay-100 before:h-1 before:rounded-full">
                                     АРХИВА НА РЕПЕРТОАРИ
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
 
