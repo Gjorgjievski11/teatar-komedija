@@ -4,7 +4,6 @@
     <x-user.parts.about.headlined-cards/>
     <x-user.parts.about.intro-section/>
     <x-user.parts.about.awards/>
-    <x-user.parts.page.play-slider :$plays />
     <x-user.parts.about.statistics-slider/>
     <x-user.parts.about.directors/>
 </x-user.layouts.base>
