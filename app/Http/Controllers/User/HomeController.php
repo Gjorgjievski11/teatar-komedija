@@ -5,7 +5,9 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Play;
+use App\Models\PlayDate;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -15,20 +17,24 @@ class HomeController extends Controller
         $startOfMonth = $now->copy()->startOfMonth();
         $endOfMonth = $now->copy()->endOfMonth();
 
-        // Plays with dates in the current month
-        $plays = Play::whereHas('dates', function ($query) use ($startOfMonth, $endOfMonth) {
-            $query->whereDate('played_at', '>=', $startOfMonth)
-                ->whereDate('played_at', '<=', $endOfMonth);
-        })
-        ->with(['dates' => function ($query) use ($startOfMonth, $endOfMonth) {
-            $query->whereDate('played_at', '>=', $startOfMonth)
-                ->whereDate('played_at', '<=', $endOfMonth)
-                ->orderBy('played_at');
-        }])
-        ->latest()
-        ->get();
+$plays = Play::whereHas('dates', function ($query) use ($startOfMonth, $endOfMonth) {
+        $query->whereBetween('played_at', [$startOfMonth, $endOfMonth]);
+    })
+    ->with(['dates' => function ($query) use ($startOfMonth, $endOfMonth) {
+        $query->whereBetween('played_at', [$startOfMonth, $endOfMonth])
+              ->orderBy('played_at', 'asc')
+              ->limit(1);
+    }])
+    ->orderBy(
+        PlayDate::select('played_at')
+            ->whereColumn('play_dates.play_id', 'plays.id')
+            ->whereBetween('played_at', [$startOfMonth, $endOfMonth])
+            ->orderBy('played_at', 'asc')
+            ->limit(1)
+    )
+    ->get();
 
-        // Optional: Fallback to next month if no plays this month
+    // Optional: Fallback to next month if no plays this month
         if ($plays->isEmpty()) {
             $startOfNextMonth = $now->copy()->addMonth()->startOfMonth();
             $endOfNextMonth = $now->copy()->addMonth()->endOfMonth();
@@ -46,6 +52,6 @@ class HomeController extends Controller
             ->get();
         }
 
-        return view('user.home.index', compact('plays'));
+        return view('user.home.index',  compact('plays'));
     }
 }
