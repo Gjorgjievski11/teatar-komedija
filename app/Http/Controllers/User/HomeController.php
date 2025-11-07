@@ -6,35 +6,46 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Play;
 use Carbon\Carbon;
+
 class HomeController extends Controller
-
 {
-public function index()
-{
-    $now = Carbon::now();
-    $endOfWeek = $now->copy()->endOfWeek(Carbon::SUNDAY);
-    $startOfNextWeek = $endOfWeek->copy()->addDay();
-    $endOfNextWeek = $startOfNextWeek->copy()->endOfWeek(Carbon::SUNDAY);
+    public function index()
+    {
+        $now = Carbon::now();
+        $startOfMonth = $now->copy()->startOfMonth();
+        $endOfMonth = $now->copy()->endOfMonth();
 
-    // Plays with upcoming dates in the current week
-    $plays = Play::whereHas('dates', function ($query) use ($now, $endOfWeek) {
-        $query->whereDate('played_at', '>=', $now)
-              ->whereDate('played_at', '<=', $endOfWeek);
-    })
-    ->with('dates')
-    ->latest()
-    ->get();
-
-    // Fallback: next week's plays if none left in current week
-    if ($plays->isEmpty()) {
-        $plays = Play::whereHas('dates', function ($query) use ($startOfNextWeek, $endOfNextWeek) {
-            $query->whereDate('played_at', '>=', $startOfNextWeek)
-                  ->whereDate('played_at', '<=', $endOfNextWeek);
+        // Plays with dates in the current month
+        $plays = Play::whereHas('dates', function ($query) use ($startOfMonth, $endOfMonth) {
+            $query->whereDate('played_at', '>=', $startOfMonth)
+                ->whereDate('played_at', '<=', $endOfMonth);
         })
-        ->with('dates')
+        ->with(['dates' => function ($query) use ($startOfMonth, $endOfMonth) {
+            $query->whereDate('played_at', '>=', $startOfMonth)
+                ->whereDate('played_at', '<=', $endOfMonth)
+                ->orderBy('played_at');
+        }])
         ->latest()
         ->get();
-    }
 
-    return view('user.home.index', compact('plays'));
-}}
+        // Optional: Fallback to next month if no plays this month
+        if ($plays->isEmpty()) {
+            $startOfNextMonth = $now->copy()->addMonth()->startOfMonth();
+            $endOfNextMonth = $now->copy()->addMonth()->endOfMonth();
+
+            $plays = Play::whereHas('dates', function ($query) use ($startOfNextMonth, $endOfNextMonth) {
+                $query->whereDate('played_at', '>=', $startOfNextMonth)
+                    ->whereDate('played_at', '<=', $endOfNextMonth);
+            })
+            ->with(['dates' => function ($query) use ($startOfNextMonth, $endOfNextMonth) {
+                $query->whereDate('played_at', '>=', $startOfNextMonth)
+                    ->whereDate('played_at', '<=', $endOfNextMonth)
+                    ->orderBy('played_at');
+            }])
+            ->latest()
+            ->get();
+        }
+
+        return view('user.home.index', compact('plays'));
+    }
+}
