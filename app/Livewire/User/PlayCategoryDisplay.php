@@ -89,7 +89,7 @@ class PlayCategoryDisplay extends Component
         // 🧭 Sort plays depending on category
         if ($this->category === 'premieres') {
             // Newest premiere first
-            $plays = $plays->sortBy('sortDate')->values();
+            $plays = $plays->sortByDesc('sortDate')->values();
         } else {
             // Soonest next show first
             $plays = $plays->sortBy('sortDate')->values();
