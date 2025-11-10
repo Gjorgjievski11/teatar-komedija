@@ -25,8 +25,6 @@
             АКТИВНОСТИ
             <div id="dropdown-content"
                 class="absolute bg-black/40 top-8 w-auto whitespace-nowrap shadow-lg rounded-lg px-4 py-3 transition-all duration-200 ease-out opacity-0 invisible group-hover:opacity-100 group-hover:visible transform group-hover:translate-y-0 translate-y-1">
-                <a href="{{ route('user.repertoire.index', ['q' => 'plays']) }}"
-                    class="text-white hover:text-yellow-600 duration-300 transition-all block py-2">ПРЕТСТАВИ</a>
                 <a href="{{ route('user.activities.index', ['q' => 'projects']) }}"
                     class="text-white hover:text-yellow-600 duration-300 transition-all block py-2">ПРОЕКТИ</a>
                 <a href="{{ route('user.activities.index', ['q' => 'guests']) }}"
@@ -76,7 +74,7 @@
         <a href="{{ route('user.search') }}">
             <img src="{{ asset('images/nav-icons/Lupa.svg') }}" alt="">
         </a>
-        <div>
+        <!-- <div>
             <img id="language-toggle" src="{{ asset('images/nav-icons/Macedonian_Desktop.svg') }}"
                 class="fa-regular fa-circle relative cursor-pointer" alt="">
 
@@ -86,7 +84,7 @@
                 <img src="{{ asset('images/nav-icons/English_Desktop.svg') }}" class='cursor-pointer' alt="">
             </div>
         </div>
-        <img src="{{ asset('images/nav-icons/Profile_Icon.svg') }}" alt="">
+        <img src="{{ asset('images/nav-icons/Profile_Icon.svg') }}" alt=""> -->
     </side-nav>
 
     {{-- MOBILE --}}
@@ -178,12 +176,6 @@
 
                         <ul
                             class="opacity-0 scale-y-95 max-h-0 group-focus-within:opacity-100 group-focus-within:scale-y-100 group-focus-within:max-h-[500px] transition-all duration-300 ease-out overflow-y-hidden origin-top text-sm indent-4">
-                            <li>
-                                <a href="{{ route('user.repertoire.index', ['q' => 'plays']) }}"
-                                    class="relative text-white hover:text-gray-300 duration-300 transition-all block py-2 px-4 before:absolute before:left-0 before:top-4 before:w-0 hover:before:w-5 before:bg-white before:transition-all before:duration-150 before:delay-100 before:h-1 before:rounded-full">
-                                    ПРЕТСТАВИ
-                                </a>
-                            </li>
                             <li>
                                 <a href="{{ route('user.activities.index', ['q' => 'projects']) }}"
                                     class="relative text-white hover:text-gray-300 duration-300 transition-all block py-2 px-4 before:absolute before:left-0 before:top-4 before:w-0 hover:before:w-5 before:bg-white before:transition-all before:duration-150 before:delay-100 before:h-1 before:rounded-full">
