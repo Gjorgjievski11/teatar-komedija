@@ -9,7 +9,7 @@
             <div class="grid grid-cols-2 gap-5 sticky top-0">
                 <x-admin.parts.form.input :value="old('title', $play->title)" name='title' label='Наслов' placeholder='Пар Распар' />
                 <x-admin.parts.form.input-group :value="old('duration', $play->duration)" name='duration' label='Времетраење' type='number'
-                    min='0' step='10' placeholder='120'>мин.</x-admin.parts.form.input-group>
+                    min='0' placeholder='120'>мин.</x-admin.parts.form.input-group>
 
                 <div class="col-span-full">
                     <div class="col-span-full">
