@@ -8,10 +8,9 @@
 
     <div id="our-links" class="flex flex-col gap-y-4 w-full md:w-1/4 items-center md:items-start">
         <div class="flex gap-x-4 justify-center md:justify-start">
-            <img src="{{ asset('./images/contact-icons/Facebook-logo.svg') }}" alt="">
-            <img src="{{ asset('./images/contact-icons/Instagram-logo.svg') }}" alt="">
-            <img src="{{ asset('./images/contact-icons/Twitter-(X)-logo.svg') }}" alt="">
-            <img src="{{ asset('./images/contact-icons/icomoon-free_mail.svg') }}" alt="">
+            <a href="https://www.facebook.com/TeatarKomedija"><img src="{{ asset('./images/contact-icons/Facebook-logo.svg') }}" alt=""></a>
+            <a href="https://www.instagram.com/teatarkomedija/"><img src="{{ asset('./images/contact-icons/Instagram-logo.svg') }}" alt=""></a>
+            <a href="https://x.com/teatarkomedija"><img src="{{ asset('./images/contact-icons/Twitter-(X)-logo.svg') }}" alt=""></a>
         </div>
         <p class="text-center md:text-left md:w-3/5">
             Администрација: 02 310 9999
