@@ -7,7 +7,7 @@
         previous() {
             if (this.currentSlideIndex > 1) {
                 this.currentSlideIndex = this.currentSlideIndex - 1
-            } else {
+            } else {             
                 // If it's the first image, go to the last image
                 this.currentSlideIndex = this.images.length
             }
