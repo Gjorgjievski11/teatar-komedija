@@ -13,7 +13,10 @@ class PlayGrid extends Component
 
     public function render()
     {
-        $plays = Play::with('dates', 'images', 'crew', 'categories', 'crew.employee.jobPosition')->search($this->search)->paginate(12);
+        $plays = Play::with('dates', 'images', 'crew', 'categories', 'crew.employee.jobPosition')
+                ->search($this->search)
+                ->orderBy("id", "desc")
+                ->paginate(12);
         return view('livewire.play-grid', [
             'plays' => $plays,
         ]);
