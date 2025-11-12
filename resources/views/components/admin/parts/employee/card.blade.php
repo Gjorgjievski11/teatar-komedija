@@ -46,7 +46,6 @@
             </button>
         </template>
         <!-- images -->
-        <!-- Change min-h-[50svh] to your preferred height size -->
         <div class="relative min-h-[30svh] w-full">
             <template x-for="(image, index) in images">
                 <div x-show="currentSlideIndex == index + 1" class="absolute inset-0"

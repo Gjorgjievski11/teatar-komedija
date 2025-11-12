@@ -22,7 +22,7 @@ class EmployeesDisplay extends Component
     public function render()
     {
         return view('livewire.employees-display', [
-            'employees' => Employee::with(['images', 'jobPosition'])->search($this->search)->paginate(9),
+            'employees' => Employee::with(['images', 'jobPosition'])->search($this->search)->paginate(20),
         ]);
     }
 }
