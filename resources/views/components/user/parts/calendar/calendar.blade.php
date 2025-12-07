@@ -1,12 +1,6 @@
 @props(['title' => null])
 
 <div id="calendar-container" class="w-full h-full py-10 bg-black/90">
-    @if ($title)
-        <div class='text-white text-center my-6'>
-            <p class='text-[40px]/[48px] font-[600]'>{{ $title }}</p>
-        </div>
-    @endif
-
     <x-user.parts.calendar.month />
 
     <div id="calendar"
@@ -30,7 +24,16 @@
                 window.currentYear = currentYear;
                 updateCalendar(currentMonth, currentYear);
                 renderMonthButtons(currentMonth);
+                updateCalendarTitle(currentYear); // Update title when year changes
             });
+
+            // Function to update calendar title
+            function updateCalendarTitle(year) {
+                const titleElement = document.getElementById('calendar-title');
+                if (titleElement) {
+                    titleElement.textContent = `КАЛЕНДАР ${year}`;
+                }
+            }
 
             updateCalendar(currentMonth, currentYear);
             renderMonthButtons(currentMonth);
@@ -65,6 +68,9 @@
                     });
                     window.dispatchEvent(yearEvent);
                 }
+                
+                // Update title whenever month changes (in case year changed)
+                updateCalendarTitle(currentYear);
                 
                 updateCalendar(currentMonth, currentYear);
                 renderMonthButtons(currentMonth);
@@ -114,7 +120,7 @@
                                         '>': '&gt;',
                                         '"': '&quot;',
                                         "'": '&#39;'
-                                    } [m];
+                                    }[m];
                                 });
                             };
 
