@@ -37,7 +37,7 @@ class PlayController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:255',
             'duration' => 'nullable|numeric|min:0',
-            'short_description' => 'nullable|max:300',
+            'short_description' => 'nullable',
             'description' => 'nullable|max:5000',
             'poster' => 'required|image|mimes:jpg,jpeg,webp,png',
             'ticket_url' => 'required|url|active_url',
@@ -88,7 +88,7 @@ class PlayController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:255',
             'duration' => 'nullable|numeric|min:0',
-            'short_description' => 'nullable|max:300',
+            'short_description' => 'nullable',
             'description' => 'nullable|max:5000',
             'poster' => 'nullable|image|mimes:jpg,jpeg,webp,png',
             'ticket_url' => 'required|url|active_url',
