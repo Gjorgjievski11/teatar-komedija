@@ -36,7 +36,7 @@ class PlayController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'duration' => 'required|numeric|min:0',
+            'duration' => 'nullable|numeric|min:0',
             'short_description' => 'nullable|max:300',
             'description' => 'nullable|max:5000',
             'poster' => 'required|image|mimes:jpg,jpeg,webp,png',
@@ -57,7 +57,7 @@ class PlayController extends Controller
             $play->categories()->sync($validated['categories']);
         }
 
-        return redirect()->route('admin.crew.create', $play)
+        return redirect()->route('admin.play.index', $play)
             ->with('alert', ['message' => 'Претставата беше успешно додадена.']);
     }
 
@@ -87,7 +87,7 @@ class PlayController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
-            'duration' => 'nullable|numeric|min:0', // changed to nullable so that it doesn't require updating if not provided
+            'duration' => 'nullable|numeric|min:0',
             'short_description' => 'nullable|max:300',
             'description' => 'nullable|max:5000',
             'poster' => 'nullable|image|mimes:jpg,jpeg,webp,png',
