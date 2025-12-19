@@ -34,50 +34,6 @@
             @endforeach
 
 
-            {{-- <div class="flex items-center justify-between px-4 py-3 rounded-2xl shadow-2xl bg-white ">
-                <span class="text-sm font-medium text-gray-800">25.02.2025 | 20:00</span>
-                <a href='https://online.teatarkomedija.mk/'
-                    class="bg-red-600 text-white text-sm px-4 py-2 rounded-md hover:bg-red-700">
-                    КУПИ КАРТА
-                </a>
-            </div>
-            <div class="flex items-center justify-between px-4 py-3 rounded-2xl shadow-2xl bg-white ">
-                <span class="text-sm font-medium text-gray-800">25.02.2025 | 20:00</span>
-                <a href='https://online.teatarkomedija.mk/'
-                    class="bg-red-600 text-white text-sm px-4 py-2 rounded-md hover:bg-red-700">
-                    КУПИ КАРТА
-                </a>
-            </div>
-            <div class="flex items-center justify-between px-4 py-3 rounded-2xl shadow-2xl bg-white ">
-                <span class="text-sm font-medium text-gray-800">25.02.2025 | 20:00</span>
-                <a href='https://online.teatarkomedija.mk/'
-                    class="bg-red-600 text-white text-sm px-4 py-2 rounded-md hover:bg-red-700">
-                    КУПИ КАРТА
-                </a>
-            </div>
-
-            <div class="flex items-center justify-between px-4 py-3 rounded-2xl shadow-2xl bg-white">
-                <span class="text-sm font-medium text-gray-800">25.02.2025 | 20:00</span>
-                <button href='' class="bg-gray-400 text-white text-sm px-4 py-2 rounded-md" disabled>
-                    РАСПРОДАДЕНО
-                </button>
-            </div>
-
-            <div class="flex items-center justify-between px-4 py-3 rounded-2xl shadow-2xl bg-white ">
-                <span class="text-sm font-medium text-gray-800">25.02.2025 | 20:00</span>
-                <a href='https://online.teatarkomedija.mk/'
-                    class="bg-red-600 text-white text-sm px-4 py-2 rounded-md hover:bg-red-700">
-                    КУПИ КАРТА
-                </a>
-            </div>
-            <div class="flex items-center justify-between px-4 py-3 rounded-2xl shadow-2xl bg-white ">
-                <span class="text-sm font-medium text-gray-800">25.02.2025 | 20:00</span>
-                <a href='https://online.teatarkomedija.mk/'
-                    class="bg-red-600 text-white text-sm px-4 py-2 rounded-md hover:bg-red-700">
-                    КУПИ КАРТА
-                </a>
-            </div> --}}
-
         </div>
     </div>
 
