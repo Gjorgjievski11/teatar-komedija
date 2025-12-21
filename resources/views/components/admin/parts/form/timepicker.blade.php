@@ -1,4 +1,4 @@
-@props(['name', 'label' => null, 'value' => null, 'required' => false])
+@props(['name', 'label' => null, 'value' => "20:00", 'required' => false])
 <div x-data="{ now: Date.now() }">
     @if ($label)
         <label for="{{ $name }}"

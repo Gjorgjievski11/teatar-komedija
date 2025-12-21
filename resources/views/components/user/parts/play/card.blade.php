@@ -30,7 +30,7 @@
 
             @if ($play['short_description'])
                 <p class="text-sm sm:text-base">
-                    {{ $play['short_description'] }}
+                    {{ \Illuminate\Support\Str::limit($play['short_description'], 300, '...') }}
                 </p>
             @endif
         </div>
