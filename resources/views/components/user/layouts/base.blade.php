@@ -9,6 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://kit.fontawesome.com/bcc8e670c5.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
     @livewireStyles
 </head>
 
