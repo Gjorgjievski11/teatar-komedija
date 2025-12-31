@@ -5,4 +5,5 @@
     <x-user.parts.about.awards/>
     <x-user.parts.about.statistics-slider/>
     <x-user.parts.about.directors/>
+    <x-user.parts.about.repertoire/>
 </x-user.layouts.base>
