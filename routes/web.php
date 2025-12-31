@@ -25,6 +25,7 @@ use App\Http\Controllers\User\ContactController;
 use App\Http\Controllers\User\SearchController;
 use Google\Service\CloudSearch\SessionContext;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AnnouncementController;
 
 Route::get('login', [SessionController::class, 'index'])->name('login');
 Route::post('login', [SessionController::class, 'store'])->name('sign-in');
@@ -67,6 +68,8 @@ Route::name('admin.')->prefix('admin')->middleware("auth")->group(function () {
     Route::get('/calendar', CalendarController::class)->name('calendar.index');
 
     Route::get('/newsletter', NewsletterController::class)->name('newsletter.index');
+
+    Route::resource('announcements',AnnouncementController::class)->except('show')->names('announcements');
 });
 
 Route::name('user.')->group(function () {

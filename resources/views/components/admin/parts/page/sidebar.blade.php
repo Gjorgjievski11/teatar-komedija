@@ -111,6 +111,16 @@
                 </x-slot:icon>
                 Активности
             </x-admin.parts.sidebar.link>
+
+            <x-admin.parts.sidebar.link :href="route('admin.announcements.index')" :active="request()->routeIs('admin.announcements.*')">
+                <x-slot:icon>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M3 10.5A1.5 1.5 0 0 1 4.5 9h1.379l1.447-4.341A1.5 1.5 0 0 1 8.75 3.75h6.5a1.5 1.5 0 0 1 1.424.909L18.12 9H19.5a1.5 1.5 0 0 1 0 3h-.32l-.793 7.134A2.25 2.25 0 0 1 16.15 21H7.85a2.25 2.25 0 0 1-2.237-1.866L4.82 12H4.5A1.5 1.5 0 0 1 3 10.5Zm5.75-4.25L7.833 9h8.334l-.917-2.75H8.75Zm-2.41 6.25.708 6.375c.035.315.303.552.611.552h8.3c.308 0 .576-.237.611-.552l.708-6.375H6.34Z" clip-rule="evenodd" />
+                    </svg>
+                </x-slot:icon>
+
+                Известувања
+            </x-admin.parts.sidebar.link>
         </ul>
     </div>
 </aside>
