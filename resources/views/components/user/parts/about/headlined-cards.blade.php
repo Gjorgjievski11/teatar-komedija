@@ -7,7 +7,7 @@
     <div id="card" class="md:w-1/5 bg-white p-6 flex flex-col items-center justify-center text-center gap-y-2 rounded-[20px]">
         <img src="{{ asset("./images/about-icons/Director icon.svg") }}" class="w-20">
         <p class="text-sm">Премиери</p>
-        <h1 class="text-red-700 text-2xl font-bold">50</h1>
+        <h1 class="text-red-700 text-2xl font-bold">54</h1>
     </div>
     <div id="card" class="md:w-1/5 bg-white p-6 flex flex-col items-center justify-center text-center gap-y-2 rounded-[20px]">
         <img src="{{ asset("./images/about-icons/Show icon.svg") }}" class="w-20">
