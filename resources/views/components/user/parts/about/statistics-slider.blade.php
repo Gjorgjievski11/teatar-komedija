@@ -1,4 +1,4 @@
-<section id="statistics-carousel" class="relative z-10 py-10 bg-white text-black mx-6">
+<section id="statistics-carousel" class="relative z-10 py-5 bg-white text-black mx-6">
     <h1 class="text-red-700 px-12 text-3xl font-bold">Статистика</h1>
 
     <div class="swiper statistics-carousel w-full h-full">

@@ -1,4 +1,4 @@
-<section id="repertoire" class="relative z-10 py-10 bg-white text-black mx-6">
+<section id="repertoire" class="relative z-10 py-5 bg-white text-black mx-6">
     <h1 class="text-red-700 px-12 text-3xl font-bold">Репертоар од почетоците до денес</h1>
 
     <ul class="list-disc px-16 my-6 space-y-2">
