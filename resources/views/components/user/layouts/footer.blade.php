@@ -1,6 +1,6 @@
 <footer class="bg-[#161616] text-white text-sm py-12 px-6 flex flex-col md:flex-row gap-y-10 md:gap-y-0 md:gap-x-10">
     <div id="address" class="flex flex-col gap-y-6 md:gap-y-12 w-full md:w-1/4">
-        <p>НУ Театар Комедија © 2025</p>
+        <p>НУ Театар Комедија © {{ date('Y') }}</p>
         <p>Бул. Климент Охридски бр.27, Скопје 1000, Северна Македонија</p>
     </div>
 
