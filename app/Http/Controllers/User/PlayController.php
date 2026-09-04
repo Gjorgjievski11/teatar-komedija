@@ -10,25 +10,44 @@ use Psy\Command\WhereamiCommand;
 
 class PlayController extends Controller
 {
-    public function show(Request $request, string $id)
-    {
-        $play = Play::with('crew', 'images')->where('id', $id)->first();
-        $contributors = $play->crew()
-            ->with('employee.jobPosition')
-            ->whereHas('employee.jobPosition', function ($query) {
-                $query->where('name', '!=', 'Актер');
-            })
-            ->get();
+public function show($id)
+{
+    $play = Play::with([
+        'dates',
+        'crew.employee.jobPosition',
+        'crew.employee.images',
+        'crew.contributions',
+        'images'
+    ])->findOrFail($id);
 
-        $actors = $play->crew()
-            ->where('job_position_id', 2)
-            ->with('employee.jobPosition')
-            ->get();
-        // dd($actors);
-        // dd($contributors, $actors);
-        // dd($play->images);
+    // Debug (optional)
+    $allJobPositions = $play->crew->map(function($pe) {
+        return [
+            'employee_name' => $pe->employee->getFullName(),
+            'job_position_id' => $pe->employee->job_position_id,
+            'job_position_name' => $pe->employee->jobPosition->name ?? 'Unknown',
+            'has_role_name' => !empty($pe->role_name)
+        ];
+    });
+
+    $actors = $play->crew->filter(function ($pe) {
+    $job = strtolower($pe->employee->jobPosition->name ?? '');
+    $hasRole = filled($pe->role_name);
+    $hasContributions = $pe->contributions->isNotEmpty() || !is_null($pe->contribution_id);
+
+    $isActorByPosition = str_contains($job, 'actor') ||
+                         str_contains($job, 'глумец') ||
+                         str_contains($job, 'актер');
+
+    return $hasRole || $isActorByPosition || !$hasContributions;
+});
 
 
-        return view('user.play.show', compact('play', 'contributors', 'actors'));
-    }
+    $contributors = $play->crew->filter(function ($playEmployee) {
+        return $playEmployee->contributions->isNotEmpty() ||
+               !is_null($playEmployee->contribution_id);
+    });
+
+    return view('user.play.show', compact('play', 'actors', 'contributors'));
+}
 }

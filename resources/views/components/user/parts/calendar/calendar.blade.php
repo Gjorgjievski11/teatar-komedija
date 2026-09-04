@@ -1,12 +1,6 @@
 @props(['title' => null])
 
 <div id="calendar-container" class="w-full h-full py-10 bg-black/90">
-    @if ($title)
-        <div class='text-white text-center my-6'>
-            <p class='text-[40px]/[48px] font-[600]'>{{ $title }}</p>
-        </div>
-    @endif
-
     <x-user.parts.calendar.month />
 
     <div id="calendar"
@@ -20,8 +14,67 @@
             let currentRequest = null;
             let isLoading = false;
 
+            // Make year and month globally accessible
+            window.currentYear = currentYear;
+            window.currentMonth = currentMonth;
+
+            // --- Listen for year changes from year selector ---
+            window.addEventListener('year-changed', (e) => {
+                currentYear = e.detail.year;
+                window.currentYear = currentYear;
+                updateCalendar(currentMonth, currentYear);
+                renderMonthButtons(currentMonth);
+                updateCalendarTitle(currentYear); // Update title when year changes
+            });
+
+            // Function to update calendar title
+            function updateCalendarTitle(year) {
+                const titleElement = document.getElementById('calendar-title');
+                if (titleElement) {
+                    titleElement.textContent = `КАЛЕНДАР ${year}`;
+                }
+            }
+
             updateCalendar(currentMonth, currentYear);
             renderMonthButtons(currentMonth);
+
+            // Function to handle month navigation
+            function changeMonth(direction) {
+                if (direction === 'prev') {
+                    if (currentMonth === 1) {
+                        currentMonth = 12;
+                        currentYear--;
+                    } else {
+                        currentMonth--;
+                    }
+                } else if (direction === 'next') {
+                    if (currentMonth === 12) {
+                        currentMonth = 1;
+                        currentYear++;
+                    } else {
+                        currentMonth++;
+                    }
+                }
+                
+                // Update global variables
+                window.currentYear = currentYear;
+                window.currentMonth = currentMonth;
+                
+                // Emit year change if year actually changed (when crossing December-January boundary)
+                if ((direction === 'prev' && currentMonth === 12) || 
+                    (direction === 'next' && currentMonth === 1)) {
+                    const yearEvent = new CustomEvent('year-changed', { 
+                        detail: { year: currentYear } 
+                    });
+                    window.dispatchEvent(yearEvent);
+                }
+                
+                // Update title whenever month changes (in case year changed)
+                updateCalendarTitle(currentYear);
+                
+                updateCalendar(currentMonth, currentYear);
+                renderMonthButtons(currentMonth);
+            }
 
             function updateCalendar(month, year) {
                 if (isLoading && currentRequest) {
@@ -39,19 +92,12 @@
                         signal: controller.signal
                     })
                     .then(res => {
-                        if (controller.signal.aborted) {
-                            return Promise.reject(new Error('Request cancelled'));
-                        }
-
-                        if (!res.ok) {
-                            throw new Error('Network response was not ok');
-                        }
+                        if (controller.signal.aborted) return Promise.reject(new Error('Request cancelled'));
+                        if (!res.ok) throw new Error('Network response was not ok');
                         return res.json();
                     })
                     .then(data => {
-                        if (controller.signal.aborted) {
-                            return;
-                        }
+                        if (controller.signal.aborted) return;
 
                         calendar.innerHTML = '';
 
@@ -74,45 +120,44 @@
                                         '>': '&gt;',
                                         '"': '&quot;',
                                         "'": '&#39;'
-                                    } [m];
+                                    }[m];
                                 });
                             };
 
                             card.innerHTML = `
-    <div class="absolute -bottom-8 -left-4 flex items-center z-20 overflow-visible">
-        <div class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-black/80 to-black/0 blur-2xl -z-10 left-0 bottom-0"></div>
-        <div>
-            <p class="text-white text-8xl font-bold leading-none">${day}</p>
-        </div>
-    </div>
+                                <div class="absolute -bottom-8 -left-4 flex items-center z-20 overflow-visible">
+                                    <div class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-black/80 to-black/0 blur-2xl -z-10 left-0 bottom-0"></div>
+                                    <div>
+                                        <p class="text-white text-8xl font-bold leading-none">${day}</p>
+                                    </div>
+                                </div>
 
-    <div class="group relative w-full h-80 rounded-3xl shadow-lg overflow-hidden">
-        <div class="relative w-full h-full flex text-xl font-semibold bg-white">
-            <img src="${escapeHtml(play.photo)}" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
+                                <div class="group relative w-full h-80 rounded-3xl shadow-lg overflow-hidden">
+                                    <div class="relative w-full h-full flex text-xl font-semibold bg-white">
+                                        <img src="${escapeHtml(play.photo)}" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 group-hover:opacity-0" />
 
-            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 bg-white text-right">
-                <div class="flex flex-col gap-y-4">
-                    <h1 class="text-black text-4xl max-sm:text-center md:text-2xl ">${escapeHtml(play.title)}</h1>
-                    <h2 class="text-red-500 text-3xl max-sm:text-center md:text-xl">${escapeHtml(play.time)}</h2>
-                    ${play.description ? `<p class="text-gray-600 text-sm text-left">${escapeHtml(play.description)}</p>` : ''}
-                </div>
+                                        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 bg-white text-right">
+                                            <div class="flex flex-col gap-y-4">
+                                                <h1 class="text-black text-4xl max-sm:text-center md:text-2xl break-words overflow-hidden">${escapeHtml(play.title)}</h1>
+                                                <h2 class="text-red-500 text-3xl max-sm:text-center md:text-xl break-words overflow-hidden">${escapeHtml(play.time)}</h2>
+                                            </div>
 
-                <div class="text-right text-xs font-light max-sm:hidden">
-                    <p>Автор:</p>
-                    <p>${escapeHtml(play.author)}</p>
-                    <p>Режија:</p>
-                    <p>${escapeHtml(play.director)}</p>
-                    <p class="text-red-600 font-semibold max-sm:text-2xl mt-2">${escapeHtml(play.price)}</p>
-                </div>
+                                            <div class="text-right text-xs font-light max-sm:hidden break-words overflow-hidden">
+                                                <p>Автор:</p>
+                                                <p class="break-words">${escapeHtml(play.author)}</p>
+                                                <p>Режија:</p>
+                                                <p class="break-words">${escapeHtml(play.director)}</p>
+                                                <p class="text-red-600 font-semibold max-sm:text-2xl mt-2 break-words">${escapeHtml(play.price)}</p>
+                                            </div>
 
-                <div class="bottom-6 right-4 flex justify-end gap-x-5 text-xs pt-2">
-                    <a href="${escapeHtml(play.ticket_url)}" target="_blank" class="text-white bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors duration-200 max-sm:text-xl">КУПИ КАРТА</a>
-                    <a href="/play/${play.id}"
-    class="text-red-800 bg-white border-2 border-red-800 w-8 h-8 max-sm:w-12 max-sm:h-12 text-xl rounded flex items-center justify-center hover:bg-red-50 transition-colors duration-200">i</a>
-            </div>
-        </div>
-    </div>
-`;
+                                            <div class="bottom-6 right-4 flex justify-end gap-x-5 text-xs pt-2">
+                                                <a href="${escapeHtml(play.ticket_url)}" target="_blank" class="text-white bg-red-800 py-2 px-2 rounded hover:bg-red-700 transition-colors duration-200 max-sm:text-xl">КУПИ КАРТА</a>
+                                                <a href="/play/${play.id}"
+                                    class="text-red-800 bg-white border-2 border-red-800 w-8 h-8 max-sm:w-12 max-sm:h-12 text-xl rounded flex items-center justify-center hover:bg-red-50 transition-colors duration-200">i</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
                             calendar.appendChild(card);
                         });
                     })
@@ -128,9 +173,7 @@
                     })
                     .finally(() => {
                         isLoading = false;
-                        if (currentRequest === controller) {
-                            currentRequest = null;
-                        }
+                        if (currentRequest === controller) currentRequest = null;
                     });
             }
 
@@ -158,16 +201,7 @@
                     leftArrow.innerHTML = '&lt;';
                     leftArrow.className = 'text-white text-3xl hover:text-orange-500 transition';
                     leftArrow.type = 'button';
-                    leftArrow.addEventListener('click', () => {
-                        if (currentMonth === 1) {
-                            currentMonth = 12;
-                            currentYear--;
-                        } else {
-                            currentMonth--;
-                        }
-                        updateCalendar(currentMonth, currentYear);
-                        renderMonthButtons(currentMonth);
-                    });
+                    leftArrow.addEventListener('click', () => changeMonth('prev'));
 
                     const label = document.createElement('span');
                     label.textContent = monthNames[activeMonth - 1];
@@ -176,16 +210,7 @@
                     rightArrow.innerHTML = '&gt;';
                     rightArrow.className = 'text-white text-3xl hover:text-orange-500 transition';
                     rightArrow.type = 'button';
-                    rightArrow.addEventListener('click', () => {
-                        if (currentMonth === 12) {
-                            currentMonth = 1;
-                            currentYear++;
-                        } else {
-                            currentMonth++;
-                        }
-                        updateCalendar(currentMonth, currentYear);
-                        renderMonthButtons(currentMonth);
-                    });
+                    rightArrow.addEventListener('click', () => changeMonth('next'));
 
                     div.appendChild(leftArrow);
                     div.appendChild(label);
@@ -218,32 +243,14 @@
                             leftArrow.className =
                                 'absolute left-0 text-white text-2xl hover:text-orange-500 transition p-2';
                             leftArrow.type = 'button';
-                            leftArrow.addEventListener('click', () => {
-                                if (currentMonth === 1) {
-                                    currentMonth = 12;
-                                    currentYear--;
-                                } else {
-                                    currentMonth--;
-                                }
-                                updateCalendar(currentMonth, currentYear);
-                                renderMonthButtons(currentMonth);
-                            });
+                            leftArrow.addEventListener('click', () => changeMonth('prev'));
 
                             const rightArrow = document.createElement('button');
                             rightArrow.innerHTML = '&gt;';
                             rightArrow.className =
                                 'absolute right-0 text-white text-2xl hover:text-orange-500 transition p-2';
                             rightArrow.type = 'button';
-                            rightArrow.addEventListener('click', () => {
-                                if (currentMonth === 12) {
-                                    currentMonth = 1;
-                                    currentYear++;
-                                } else {
-                                    currentMonth++;
-                                }
-                                updateCalendar(currentMonth, currentYear);
-                                renderMonthButtons(currentMonth);
-                            });
+                            rightArrow.addEventListener('click', () => changeMonth('next'));
 
                             div.appendChild(leftArrow);
                             div.appendChild(label);
@@ -254,6 +261,7 @@
                             div.dataset.month = monthNum;
                             div.addEventListener('click', () => {
                                 currentMonth = monthNum;
+                                window.currentMonth = currentMonth;
                                 updateCalendar(currentMonth, currentYear);
                                 renderMonthButtons(currentMonth);
                             });

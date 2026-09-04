@@ -37,26 +37,8 @@ class JobPositionSeeder extends Seeder
             ['name' => 'Машинист', 'job_category' => 'technical'],
         ];
 
-        // $employeeImages = [
-        //     'about-images/collective/director.png',
-        //     'about-images/collective/download (1).jpeg',
-        //     'about-images/KOLEKTIV.png',
-        //     'about-images/DOKUMENTI.jpg',
-        // ];
-        // $imgCount = count($employeeImages);
-        // $imgIndex = 0;
         foreach ($positions as $position) {
-            $job = \App\Models\JobPosition::create($position);
-            // Only one director employee
-            // $numEmployees = ($position['job_category'] === 'director') ? 1 : rand(1, 3);
-            // for ($i = 0; $i < $numEmployees; $i++) {
-            //     \App\Models\Employee::create([
-            //         'name' => fake('mk_MK')->firstName(),
-            //         'surname' => fake('mk_MK')->lastName(),
-            //         'description' => fake('mk_MK')->text(120),
-            //         'job_position_id' => $job->id,
-            //     ]);
-            // }
+            $job = JobPosition::create($position);
         }
     }
 }

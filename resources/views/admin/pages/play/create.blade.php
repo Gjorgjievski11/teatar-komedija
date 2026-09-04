@@ -9,7 +9,7 @@
                 <x-admin.parts.form.input :value="old('title')" name='title' label='Наслов' placeholder='Пар Распар'
                     required />
                 <x-admin.parts.form.input-group :value="old('duration')" name='duration' label='Времетраење' type='number'
-                    min='0' step='1' placeholder='120' required>мин.</x-admin.parts.form.input-group>
+                    min='0' step='1' placeholder='120'>мин.</x-admin.parts.form.input-group>
 
                 <div class="col-span-full">
                     <x-admin.parts.form.multi-select placeholder='Изберете категории' name='categories[]'

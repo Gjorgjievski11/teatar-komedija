@@ -16,17 +16,15 @@
                 <a href="{{ route('user.archive.plays') }}"
                     class="text-white hover:text-yellow-600 duration-300 transition-all block py-2">АРХИВА НА
                     ПРЕТСТАВИ</a>
-                <a href="{{ route('user.archive.repertoires') }}"
+                {{-- <a href="{{ route('user.archive.repertoires') }}"
                     class="text-white hover:text-yellow-600 duration-300 transition-all block py-2">АРХИВА НА
-                    РЕПЕРТОАРИ</a>
+                    РЕПЕРТОАРИ</a> --}}
             </div>
         </span>
         <span class=" transition-all  duration-300 group inline-block relative pb-3 cursor-pointer">
             АКТИВНОСТИ
             <div id="dropdown-content"
                 class="absolute bg-black/40 top-8 w-auto whitespace-nowrap shadow-lg rounded-lg px-4 py-3 transition-all duration-200 ease-out opacity-0 invisible group-hover:opacity-100 group-hover:visible transform group-hover:translate-y-0 translate-y-1">
-                <a href="{{ route('user.repertoire.index', ['q' => 'plays']) }}"
-                    class="text-white hover:text-yellow-600 duration-300 transition-all block py-2">ПРЕТСТАВИ</a>
                 <a href="{{ route('user.activities.index', ['q' => 'projects']) }}"
                     class="text-white hover:text-yellow-600 duration-300 transition-all block py-2">ПРОЕКТИ</a>
                 <a href="{{ route('user.activities.index', ['q' => 'guests']) }}"
@@ -51,7 +49,7 @@
                     class="text-white hover:text-yellow-600 duration-300 transition-all block py-2">ДОКУМЕНТИ</a>
             </div>
         </span>
-        <span class=" transition-all  duration-300 group inline-block relative pb-3 cursor-pointer">ФЕСТИВАЛ
+        {{-- <span class=" transition-all  duration-300 group inline-block relative pb-3 cursor-pointer">ФЕСТИВАЛ
             ГОЛА МЕСЕЧИНА
             <div id="dropdown-content"
                 class="absolute bg-black/40 top-8 w-auto whitespace-nowrap shadow-lg rounded-lg px-4 py-3 transition-all duration-200 ease-out opacity-0 invisible group-hover:opacity-100 group-hover:visible transform group-hover:translate-y-0 translate-y-1">
@@ -68,7 +66,7 @@
                     class="text-white hover:text-yellow-600 duration-300 transition-all block py-2">ФЕСТИВАЛ
                     2021</a>
             </div>
-        </span>
+        </span> --}}
         <a href='{{ route('user.contact.index') }}' class="cursor-pointer">КОНТАКТ</a>
     </nav>
 
@@ -76,7 +74,7 @@
         <a href="{{ route('user.search') }}">
             <img src="{{ asset('images/nav-icons/Lupa.svg') }}" alt="">
         </a>
-        <div>
+        <!-- <div>
             <img id="language-toggle" src="{{ asset('images/nav-icons/Macedonian_Desktop.svg') }}"
                 class="fa-regular fa-circle relative cursor-pointer" alt="">
 
@@ -86,7 +84,7 @@
                 <img src="{{ asset('images/nav-icons/English_Desktop.svg') }}" class='cursor-pointer' alt="">
             </div>
         </div>
-        <img src="{{ asset('images/nav-icons/Profile_Icon.svg') }}" alt="">
+        <img src="{{ asset('images/nav-icons/Profile_Icon.svg') }}" alt=""> -->
     </side-nav>
 
     {{-- MOBILE --}}
@@ -155,12 +153,12 @@
                                     АРХИВА НА ПРЕТСТАВИ
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="{{ route('user.archive.repertoires') }}"
                                     class="relative text-white hover:text-gray-300 duration-300 transition-all block py-2 px-4 before:absolute before:left-0 before:top-4 before:w-0 hover:before:w-5 before:bg-white before:transition-all before:duration-150 before:delay-100 before:h-1 before:rounded-full">
                                     АРХИВА НА РЕПЕРТОАРИ
                                 </a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
 
@@ -179,23 +177,17 @@
                         <ul
                             class="opacity-0 scale-y-95 max-h-0 group-focus-within:opacity-100 group-focus-within:scale-y-100 group-focus-within:max-h-[500px] transition-all duration-300 ease-out overflow-y-hidden origin-top text-sm indent-4">
                             <li>
-                                <a href="{{ route('user.repertoire.index', ['q' => 'plays']) }}"
-                                    class="relative text-white hover:text-gray-300 duration-300 transition-all block py-2 px-4 before:absolute before:left-0 before:top-4 before:w-0 hover:before:w-5 before:bg-white before:transition-all before:duration-150 before:delay-100 before:h-1 before:rounded-full">
-                                    ПРЕТСТАВИ
-                                </a>
-                            </li>
-                            <li>
                                 <a href="{{ route('user.activities.index', ['q' => 'projects']) }}"
                                     class="relative text-white hover:text-gray-300 duration-300 transition-all block py-2 px-4 before:absolute before:left-0 before:top-4 before:w-0 hover:before:w-5 before:bg-white before:transition-all before:duration-150 before:delay-100 before:h-1 before:rounded-full">
                                     ПРОЕКТИ
                                 </a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="{{ route('user.repertoire.index', ['q' => 'naked-moon']) }}"
                                     class="relative text-white hover:text-gray-300 duration-300 transition-all block py-2 px-4 before:absolute before:left-0 before:top-4 before:w-0 hover:before:w-5 before:bg-white before:transition-all before:duration-150 before:delay-100 before:h-1 before:rounded-full">
                                     ГОЛА МЕСЕЧИНА
                                 </a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a href="{{ route('user.activities.index', ['q' => 'guests']) }}"
                                     class="relative text-white hover:text-gray-300 duration-300 transition-all block py-2 px-4 before:absolute before:left-0 before:top-4 before:w-0 hover:before:w-5 before:bg-white before:transition-all before:duration-150 before:delay-100 before:h-1 before:rounded-full">
@@ -253,7 +245,7 @@
                     </div>
 
                     <!-- ФЕСТИВАЛ ГОЛА МЕСЕЧИНА -->
-                    <div class="group">
+                    {{-- <div class="group">
                         <button class="text-md flex items-center gap-2.5 cursor-pointer focus:outline-none">
                             ФЕСТИВАЛ ГОЛА МЕСЕЧИНА
                             <svg class="size-5 group-focus-within:rotate-180 transition-transform duration-300"
@@ -263,7 +255,7 @@
                                     stroke-width="2" d="m19 9-7 7-7-7" />
                             </svg>
                         </button>
-
+ --}}
                         <ul
                             class="opacity-0 scale-y-95 max-h-0 group-focus-within:opacity-100 group-focus-within:scale-y-100 group-focus-within:max-h-[500px] transition-all duration-300 ease-out overflow-y-hidden origin-top text-sm indent-4">
                             <li>

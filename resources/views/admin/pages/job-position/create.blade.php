@@ -16,6 +16,7 @@
                 <option value="artistic">Уметничка</option>
                 <option value="administrative">Административна</option>
                 <option value="technical">Техничка</option>
+                <option value="collaborator">Соработник</option>
             </x-admin.parts.form.select>
         </div>
         <x-admin.parts.form.button class="mt-6">Додади</x-admin.parts.form.button>

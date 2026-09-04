@@ -20,7 +20,7 @@ class JobPositionController extends Controller
      */
     public function create()
     {
-        $directorExists = \App\Models\JobPosition::where('job_category', 'director')->exists();
+        $directorExists = JobPosition::where('job_category', 'director')->exists();
         return view('admin.pages.job-position.create', compact('directorExists'));
     }
 
@@ -31,11 +31,11 @@ class JobPositionController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|unique:job_positions,name|max:255',
-            'job_category' => 'required|in:director,artistic,administrative,technical',
+            'job_category' => 'required|in:director,artistic,administrative,technical,collaborator',
         ]);
 
         if ($validated['job_category'] === 'director' &&
-            \App\Models\JobPosition::where('job_category', 'director')->exists()) {
+            JobPosition::where('job_category', 'director')->exists()) {
             return back()->withErrors(['job_category' => 'Веќе постои директорска позиција.']);
         }
 
@@ -89,6 +89,6 @@ class JobPositionController extends Controller
     {
         $jobPosition->delete();
         return redirect()->route('admin.job-position.index')
-            ->with('alert', ['message' => 'Уеспешно беше избришана позицијата.']);
+            ->with('alert', ['message' => 'Успешно беше избришана позицијата.']);
     }
 }

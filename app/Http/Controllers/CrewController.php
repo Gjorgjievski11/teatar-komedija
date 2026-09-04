@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Contribution;
-use App\Models\Employee;
 use App\Models\Play;
 use App\Models\PlayEmployee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CrewController extends Controller
 {
@@ -60,46 +61,58 @@ class CrewController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Play $play)
-    {
-
-        return view('admin.pages.crew.edit', [
-            'play' => $play,
-            'crew' => $play->crew()->paginate(9),
-            'contributions' => Contribution::all(),
-        ]);
-    }
-
+public function edit(Play $play) {
+    $crew = $play->crew()
+        ->with(['employee', 'contributions'])
+        ->paginate(12);
+        
+    return view('admin.pages.crew.edit', [
+        'play' => $play,
+        'crew' => $crew,
+        'contributions' => Contribution::all(),
+    ]);
+}
     /**
-     * Update the specified resource in storage.
+     * Update play employees (roles and multiple contributions).
      */
     public function update(Request $request, Play $play)
     {
-        // dd($request->all());
+        // load all play employees for this play
+        $crew = PlayEmployee::where('play_id', $play->id)->get();
 
-        $output = [];
-
-        foreach ($request->all() as $key => $value) {
-            if (preg_match('/^(contribution|role)-(\d+)$/', $key, $matches)) {
-                [$full, $type, $id] = $matches;
-                $output[$id][$type] = $value;
-            }
+        // build validation rules dynamically per play employee
+        $rules = [];
+        foreach ($crew as $pe) {
+            $rules['contribution-' . $pe->id] = ['nullable', 'array'];
+            $rules['contribution-' . $pe->id . '.*'] = ['integer', 'exists:contributions,id'];
+            $rules['role-' . $pe->id] = ['nullable', 'string', 'max:255'];
         }
 
-        $output = array_filter($output, function ($item) {
-            return !is_null($item['contribution'] ?? null) || !is_null($item['role'] ?? null);
+        $validated = $request->validate($rules);
+
+        DB::transaction(function () use ($crew, $request) {
+            foreach ($crew as $pe) {
+                // sync pivot only if the field was present in the request
+                $contributionKey = 'contribution-' . $pe->id;
+                if ($request->has($contributionKey)) {
+                    // filter out empty values from template selects
+                    $selected = array_filter((array) $request->input($contributionKey, []), function ($v) {
+                        return (string)$v !== '';
+                    });
+                    $pe->contributions()->sync($selected);
+                }
+
+                // update role_name if provided (editable now)
+                $roleKey = 'role-' . $pe->id;
+                if ($request->has($roleKey)) {
+                    $pe->role_name = $request->input($roleKey);
+                    $pe->save();
+                }
+            }
         });
 
-        foreach ($output as $playEmployeeId => $data) {
-            $playEmployee = PlayEmployee::find($playEmployeeId);
-            $playEmployee->update([
-                'contribution_id' => $data['contribution'],
-                'role_name' => $data['role']
-            ]);
-        }
-
-        return redirect()->route('admin.play.index')
-            ->with('alert', ['message' => 'Успешно беше изменет екипашот.']);
+        // return to admin play index after saving
+        return redirect()->route('admin.play.index')->with('alert', ['message' => 'Екипажот беше успешно зачуван.']);
     }
 
     /**

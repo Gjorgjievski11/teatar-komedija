@@ -5,29 +5,62 @@ namespace App\Livewire\User;
 use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Play;
+use App\Models\PlayDate;
 
 class Carousel extends Component
 {
 
-
     public function render()
     {
-
-        $currentMonth = Carbon::now()->month;
-        $currentYear = Carbon::now()->year;
         $now = Carbon::now();
+        $startOfMonth = $now->copy()->startOfMonth();
+        $endOfMonth = $now->copy()->endOfMonth();
+        $minPlays = 3;
 
-        $plays = Play::with('categories')->whereHas('dates', function ($query) use ($now, $currentMonth, $currentYear) {
-            $query->whereRaw('played_at = (
-                    SELECT MIN(d2.played_at)
-                    FROM play_dates d2
-                    WHERE d2.play_id = play_dates.play_id
-                )')
-                ->whereMonth('played_at', $currentMonth)
-                ->whereYear('played_at', $currentYear)
-                ->where('played_at', '>', $now);
-        })->limit(3)->get();
+        // First, get plays for the current month
+        $plays = Play::whereHas('dates', function ($query) use ($startOfMonth, $endOfMonth) {
+                $query->whereBetween('played_at', [$startOfMonth, $endOfMonth]);
+            })
+            ->with(['dates' => function ($query) use ($startOfMonth, $endOfMonth) {
+                $query->whereBetween('played_at', [$startOfMonth, $endOfMonth])
+                      ->orderBy('played_at', 'asc')
+                      ->limit(1);
+            }])
+            ->orderBy(
+                PlayDate::select('played_at')
+                    ->whereColumn('play_dates.play_id', 'plays.id')
+                    ->whereBetween('played_at', [$startOfMonth, $endOfMonth])
+                    ->orderBy('played_at', 'asc')
+                    ->limit(1)
+            )
+            ->get();
 
+        // If we have less than the minimum, fetch upcoming plays from future months
+        if ($plays->count() < $minPlays) {
+            $needed = $minPlays - $plays->count();
+            $existingPlayIds = $plays->pluck('id')->toArray();
+
+            $upcomingPlays = Play::whereHas('dates', function ($query) use ($endOfMonth) {
+                    $query->where('played_at', '>', $endOfMonth);
+                })
+                ->whereNotIn('id', $existingPlayIds)
+                ->with(['dates' => function ($query) use ($endOfMonth) {
+                    $query->where('played_at', '>', $endOfMonth)
+                          ->orderBy('played_at', 'asc')
+                          ->limit(1);
+                }])
+                ->orderBy(
+                    PlayDate::select('played_at')
+                        ->whereColumn('play_dates.play_id', 'plays.id')
+                        ->where('played_at', '>', $endOfMonth)
+                        ->orderBy('played_at', 'asc')
+                        ->limit(1)
+                )
+                ->limit($needed)
+                ->get();
+
+            $plays = $plays->concat($upcomingPlays);
+        }
 
         return view('livewire.user.carousel', [
             'plays' => $plays ?? collect([]),
